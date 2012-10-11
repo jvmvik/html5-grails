@@ -12,17 +12,19 @@ TODO
 Apps
 ----
 
-BootStrap Scaffolding
-----
+## BootStrap Scaffolding
+
 Replace default template by BootStrap template.
 The field plugin enables to render field nicely.
 
-## Note
+### Note
  - Grails 2.2 update correctly the database when the schema is update.
 
-## Features
+### Features
  - Pagination support
  - Nice error highlight
+
+see: bootstrap-scaffolding for more.
 
 Tools
 -----
