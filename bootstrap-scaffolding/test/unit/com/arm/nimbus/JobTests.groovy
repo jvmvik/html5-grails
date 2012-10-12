@@ -5,7 +5,6 @@ import org.junit.*
 import groovy.json.JsonSlurper
 
 /**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor(Job)
 @Mock(Job)

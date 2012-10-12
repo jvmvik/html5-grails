@@ -1,17 +1,46 @@
 package com.arm.nimbus
 
-
-
 import grails.test.mixin.*
 import org.junit.*
+import groovy.json.JsonSlurper
 
 /**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
+ * Product domain object
  */
 @TestFor(Product)
+@Mock([Product,Job])
 class ProductTests {
 
-    void testSomething() {
-       fail "Implement me"
+    def parser = new JsonSlurper()
+    def product
+
+    @Before
+    void setUp()
+    {
+        product = new Product()
+        product.name = "product1"
+        product.projectCode = "21297"
+        product.foundry = "TSMC"
+        product.technology = "CLN40G"
+        product.createdDate = new Date()
+
+        Job job = new Job(jobID: "2136", command: "ls", state: "running")
+        job.save(flush:true)
+        product.addToJob(job)
+    }
+
+    @Test
+    void save()
+    {
+       println product.toJson().toString()
+       assertNotNull product.save()
+    }
+
+    @Test
+    void toJson()
+    {
+        assertNotNull product.toJson().toString()
+        def json = parser.parseText(product.toJson().toString())
+        assertEquals product.name, json.product.name
     }
 }

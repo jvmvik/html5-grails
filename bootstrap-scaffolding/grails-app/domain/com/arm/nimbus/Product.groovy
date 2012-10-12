@@ -1,5 +1,7 @@
 package com.arm.nimbus
 
+import groovy.json.JsonBuilder
+
 class Product {
 
     String name
@@ -10,7 +12,7 @@ class Product {
     Date createdDate
     Date updatedDate
 
-    static hasMany = [jobs: Job]
+    static hasMany = [job: Job]
 
     static constraints =
     {
@@ -18,6 +20,7 @@ class Product {
        projectCode(blank:false)
        foundry(blank:false)
        technology(blank:false)
+       updatedDate(nullable: true)
     }
 
     def beforeInsert() {
@@ -26,5 +29,25 @@ class Product {
 
     def beforeUpdate() {
         lastUpdated = new Date()
+    }
+
+    def toJson()
+    {
+        def jobids = []
+        job.each
+        {
+           jobids.add(it.id)
+        }
+
+        def json = new JsonBuilder()
+        json.product {
+            name name
+            foundry foundry
+            technology technology
+            createdDate createdDate
+            updatedDate updatedDate
+            jobs jobids
+        }
+        return json
     }
 }
