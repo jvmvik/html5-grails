@@ -7,29 +7,36 @@ import groovy.json.JsonSlurper
 /**
  */
 @TestFor(Job)
-@Mock(Job)
+@Mock([Job, TaskConfig, Product])
 class JobTests {
 
     def parser = new JsonSlurper()
-    def jobValid
+    def job
 
     @Before
     void setUp()
     {
-        jobValid = new Job(jobID: "2136", command: "ls", state: "running")
+        job = Ref.job
+        job.save()
+
+        def product = Ref.product
+        product.addToJob(job)
     }
 
     @Test
     void save()
     {
-        assertNotNull jobValid.save()
+        assertNotNull job.save()
+
+        // Check relationship
+        assertNotNull job.product
     }
 
     @Test
     void toJson()
     {
-        println jobValid.toJson().toString()
-        def json = parser.parseText(jobValid.toJson().toString())
-        assertEquals jobValid.jobID, json.job.jobID
+        println job.toJson().toString()
+        def json = parser.parseText(job.toJson().toString())
+        assertEquals job.jobID, json.job.jobID
     }
 }

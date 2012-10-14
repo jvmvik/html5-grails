@@ -17,15 +17,8 @@ class ProductTests {
     @Before
     void setUp()
     {
-        product = new Product()
-        product.name = "product1"
-        product.projectCode = "21297"
-        product.foundry = "TSMC"
-        product.technology = "CLN40G"
-        product.createdDate = new Date()
-
-        Job job = new Job(jobID: "2136", command: "ls", state: "running")
-        job.save(flush:true)
+        def job = Ref.job
+        product = Ref.product
         product.addToJob(job)
     }
 

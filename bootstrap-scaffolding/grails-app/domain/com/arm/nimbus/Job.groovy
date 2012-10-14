@@ -12,7 +12,7 @@ class Job
 	String command
 	String state
 
-    static hasMany = [taskConfig: TaskConfig]
+    Product product
 
     def toJson()
     {

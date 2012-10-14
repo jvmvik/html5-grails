@@ -12,7 +12,7 @@ class Product {
     Date createdDate
     Date updatedDate
 
-    static hasMany = [job: Job]
+    static hasMany = [job: Job, taskConfig: TaskConfig]
 
     static constraints =
     {

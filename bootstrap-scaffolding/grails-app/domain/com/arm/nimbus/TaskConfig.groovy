@@ -12,8 +12,8 @@ class TaskConfig
 	String lsf
 	String module
 
-    static belongsTo = [job: Job, product: Product]
-	
+    Product product
+
 	def toJson()
     {
         def json = new JsonBuilder()
@@ -31,5 +31,6 @@ class TaskConfig
         module(blank:false)
         name(blank:false)
         lsf(blank:false)
+        product(nullable:true)
     }
 }
